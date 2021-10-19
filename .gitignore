@@ -1,0 +1,4 @@
+/builds
+/.idea/*
+/vault-hysteria
+/coverage.*

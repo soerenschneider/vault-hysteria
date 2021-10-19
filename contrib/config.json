@@ -1,0 +1,19 @@
+{
+    "adapters": [
+        {
+            "type": "http",
+            "args": {
+                "path": "/seal",
+                "addr": ":8080"
+            }
+        }
+    ],
+    "messageFilter": {
+        "type": "contains",
+        "args": {
+            "contains": "pre-shared-secret",
+            "ignoreCase": false
+        }
+    },
+    "vaultToken": "s.asd"
+}
