@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"flag"
 	"fmt"
 	"github.com/rs/zerolog/log"
 	"github.com/soerenschneider/vault-hysteria/internal"
@@ -11,11 +12,22 @@ import (
 	"github.com/soerenschneider/vault-hysteria/internal/messagefilters"
 	anyFilter "github.com/soerenschneider/vault-hysteria/internal/messagefilters/any"
 	containsFilter "github.com/soerenschneider/vault-hysteria/internal/messagefilters/contains"
+	"os"
+	"os/user"
+	"path"
+	"strings"
+)
+
+
+const (
+	envConfFile = "VAULT_PANIC_CONFIG"
+	cliConfFile = "conf"
+	cliVersion  = "version"
 )
 
 func main() {
-	// TODO: Make configurable
-	conf, err := config.AcmeVaultClientConfigFromFile("conf.json")
+	configFile := parseCliFlags()
+	conf, err := config.AcmeVaultClientConfigFromFile(configFile)
 	if err != nil {
 		log.Fatal().Msgf("Could not load config: %v", err)
 	}
@@ -107,4 +119,31 @@ func buildAdaptersFromConfig(conf config.VaultHysteriaConfig) ([]adapters.Adapte
 	}
 
 	return builtAdapters, nil
+}
+
+func parseCliFlags() (configFile string) {
+	flag.StringVar(&configFile, cliConfFile, os.Getenv(envConfFile), "path to the config file")
+	version := flag.Bool(cliVersion, false, "Print version and exit")
+	flag.Parse()
+
+	if *version {
+		fmt.Printf("%s (revision %s)", internal.BuildVersion, internal.CommitHash)
+		os.Exit(0)
+	}
+
+	if len(configFile) == 0 {
+		log.Fatal().Msgf("No config file specified, use flag '-%s' or env var '%s'", cliConfFile, envConfFile)
+	}
+
+	if strings.HasPrefix(configFile, "~/") {
+		configFile = path.Join(getUserHomeDirectory(), configFile[2:])
+	}
+
+	return
+}
+
+func getUserHomeDirectory() string {
+	usr, _ := user.Current()
+	dir := usr.HomeDir
+	return dir
 }
