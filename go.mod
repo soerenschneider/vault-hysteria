@@ -6,8 +6,8 @@ require (
 	github.com/cenkalti/backoff/v4 v4.2.0
 	github.com/hashicorp/go-retryablehttp v0.7.2
 	github.com/hashicorp/vault/api v1.9.0
-	github.com/prometheus/client_golang v1.14.0
-	github.com/prometheus/common v0.42.0
+	github.com/prometheus/client_golang v1.15.1
+	github.com/prometheus/common v0.43.0
 	github.com/rs/zerolog v1.29.0
 )
 
