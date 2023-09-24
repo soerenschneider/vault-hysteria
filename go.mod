@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/cenkalti/backoff/v4 v4.2.1
-	github.com/hashicorp/go-retryablehttp v0.7.2
+	github.com/hashicorp/go-retryablehttp v0.7.4
 	github.com/prometheus/client_golang v1.15.1
 	github.com/prometheus/common v0.44.0
 	github.com/hashicorp/vault/api v1.10.0
