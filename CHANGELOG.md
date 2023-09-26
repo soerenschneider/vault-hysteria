@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.1](https://www.github.com/soerenschneider/vault-hysteria/compare/v1.1.0...v1.1.1) (2023-09-26)
+
+
+### Bug Fixes
+
+* **deps:** bump github.com/rs/zerolog from 1.30.0 to 1.31.0 ([f5d212b](https://www.github.com/soerenschneider/vault-hysteria/commit/f5d212bc3ed02f094b340c3474ad15b25b03dead))
+
 ## [1.1.0](https://www.github.com/soerenschneider/vault-hysteria/compare/v1.0.0...v1.1.0) (2021-11-24)
 
 
